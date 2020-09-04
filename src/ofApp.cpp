@@ -62,7 +62,7 @@ void ofApp2::update() {
 }
 
 float currentRotation = 0;
-float rotationSpeed = 0.01f;
+float rotationSpeed = 0.001f;
 //--------------------------------------------------------------
 void ofApp2::draw() {
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
