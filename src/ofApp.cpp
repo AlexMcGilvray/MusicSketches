@@ -11,25 +11,28 @@ void ofApp2::setup() {
 	{
 		mesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 	}
+	startTime = ofGetCurrentTime().getAsSeconds();
 }
 
 //--------------------------------------------------------------
 void ofApp2::update() {
+	
+	currentTimeThroughSong = ofGetCurrentTime().getAsSeconds() - startTime;
+
 	for (auto && mesh : meshes)
 	{
 		mesh.clear();
 	}
 
-	const float Size = 100;
-
-	auto makeSquare = [&Size, this](ofMesh & mesh, float sizeMultiplier)
+	auto makeSquare = [this](ofMesh & mesh, float sizeMultiplier)
 	{
+		const float sizeTest = currentTimeThroughSong * 3;
 		const int vertexBufferSize = mesh.getNumVertices();
-		const float newSize = Size * sizeMultiplier;
+		const float newSize = sizeTest + BaseSquareSize * sizeMultiplier;
 		glm::vec3 sq1(-newSize, -newSize, 0);
 		glm::vec3 sq2(newSize, -newSize, 0);
 		glm::vec3 sq3(-newSize, newSize, 0);
-		glm::vec3 sq4(newSize, newSize, 0);
+		glm::vec3 sq4(newSize, newSize, 0); 
 		mesh.addVertex(sq1);
 		mesh.addVertex(sq2);
 		mesh.addVertex(sq3);
@@ -52,19 +55,25 @@ void ofApp2::update() {
 		mesh.addIndex(vertexBufferSize + 2);
 		mesh.addIndex(vertexBufferSize + 3);
 	};
-	float currentSizeModifier = 0.5f;
+
+	auto curTime = ofGetCurrentTime(); 
+	squareSizeMultiplier = (float)sin(curTime.getAsSeconds());
+	float currentSizeModifier = (5.f * squareSizeMultiplier) / (10 - ofClamp((10 * getNormalizedSongPosition()),1.0f,10.f));
+
+	sizeModifier = (squareSizeMultiplier / 2) * 3;
 
 	for (auto & mesh : meshes)
 	{
 		makeSquare(mesh, currentSizeModifier);
 		currentSizeModifier += .1f;
+		//currentSizeModifier = ofClamp(currentSizeModifier, 1.f,5.f);
 	}
 }
 
-float currentRotation = 0;
-float rotationSpeed = 0.001f;
+
 //--------------------------------------------------------------
 void ofApp2::draw() {
+	ofPushMatrix();
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	currentRotation += rotationSpeed;
 
@@ -78,6 +87,11 @@ void ofApp2::draw() {
 		ofRotateDeg(currentRotation);
 		mesh.drawWireframe();
 	}
+	ofPopMatrix();
+	ofTranslate(0,0);
+
+	ofSetColor(ofColor::black);
+	ofDrawBitmapString("squareSizeMultiplier: " + ofToString(squareSizeMultiplier), 10, 10);
 }
 
 //--------------------------------------------------------------
