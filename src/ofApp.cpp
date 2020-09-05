@@ -1,22 +1,27 @@
 #include "ofApp.h"
+bool started = false;
 
 //--------------------------------------------------------------
 void ofApp2::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("butts");
-
+	
 	ofBackground(239);
 	meshes.resize(meshCount);
 	for (auto && mesh : meshes)
 	{
 		mesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 	}
-	startTime = ofGetCurrentTime().getAsSeconds();
 }
 
 //--------------------------------------------------------------
 void ofApp2::update() {
 	
+	if (!started)
+	{
+		return;
+	}
+
 	currentTimeThroughSong = ofGetCurrentTime().getAsSeconds() - startTime;
 
 	for (auto && mesh : meshes)
@@ -73,6 +78,10 @@ void ofApp2::update() {
 
 //--------------------------------------------------------------
 void ofApp2::draw() {
+	if (!started)
+	{
+		return;
+	}
 	ofPushMatrix();
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	currentRotation += rotationSpeed;
@@ -90,13 +99,18 @@ void ofApp2::draw() {
 	ofPopMatrix();
 	ofTranslate(0,0);
 
-	ofSetColor(ofColor::black);
-	ofDrawBitmapString("squareSizeMultiplier: " + ofToString(squareSizeMultiplier), 10, 10);
+	//ofSetColor(ofColor::black);
+	//ofDrawBitmapString("squareSizeMultiplier: " + ofToString(squareSizeMultiplier), 10, 10);
 }
 
 //--------------------------------------------------------------
 void ofApp2::keyPressed(int key) {
-
+	
+	//if (key == 'z')
+	//{
+	//	startTime = ofGetCurrentTime().getAsSeconds();
+	//	started = true;
+	//}
 }
 
 //--------------------------------------------------------------
