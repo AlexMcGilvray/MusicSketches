@@ -37,11 +37,15 @@ public:
 	float currentRotation = 0;
 	float rotationSpeed = 0.003f;
 
+	// background lerp
+	ofColor backgroundColorInitial;
+	ofColor backgroundColorFinal;
+	ofColor currentBackground;
 
+	// tracking time/position through song
 	double currentTimeThroughSong;
 	const double SongLength = 114.f;
 	double startTime;
-
-	float getNormalizedSongPosition() const { return currentTimeThroughSong / SongLength; }
+	float getNormalizedSongPosition() const;
 };
 

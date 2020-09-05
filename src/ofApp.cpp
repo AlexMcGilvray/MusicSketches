@@ -5,13 +5,24 @@ bool started = false;
 void ofApp2::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("butts");
-	
-	ofBackground(239);
+	backgroundColorInitial.r = 190;
+	backgroundColorInitial.g = 190;
+	backgroundColorInitial.b = 240;
+	backgroundColorInitial.a = 0;
+
+	backgroundColorFinal.r = 240;
+	backgroundColorFinal.g = 240;
+	backgroundColorFinal.b = 240;
+	backgroundColorFinal.a = 0;
+
+
 	meshes.resize(meshCount);
 	for (auto && mesh : meshes)
 	{
 		mesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 	}
+	startTime = ofGetCurrentTime().getAsSeconds();
+	started = true;// disable this and enable the key check in the input function further down to make capturing with OBS easier
 }
 
 //--------------------------------------------------------------
@@ -73,15 +84,22 @@ void ofApp2::update() {
 		currentSizeModifier += .1f;
 		//currentSizeModifier = ofClamp(currentSizeModifier, 1.f,5.f);
 	}
+	
+	auto lerpVal = getNormalizedSongPosition();
+	ofBackground(backgroundColorInitial.lerp(backgroundColorFinal, lerpVal));
+
 }
 
 
 //--------------------------------------------------------------
 void ofApp2::draw() {
+
+
 	if (!started)
 	{
 		return;
 	}
+
 	ofPushMatrix();
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	currentRotation += rotationSpeed;
@@ -156,6 +174,11 @@ void ofApp2::windowResized(int w, int h) {
 //--------------------------------------------------------------
 void ofApp2::gotMessage(ofMessage msg) {
 
+}
+
+float ofApp2::getNormalizedSongPosition() const
+{
+	  return ofClamp(currentTimeThroughSong / SongLength, 0.f, 1.f); 
 }
 
 //--------------------------------------------------------------
