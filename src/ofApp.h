@@ -22,6 +22,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
+	ofSoundPlayer player;
 
 	//ofMesh mesh;
 	const int meshCount = 20;

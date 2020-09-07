@@ -23,6 +23,10 @@ void ofApp2::setup() {
 	}
 	startTime = ofGetCurrentTime().getAsSeconds();
 	started = true;// disable this and enable the key check in the input function further down to make capturing with OBS easier
+	
+	player.load("../DR0000_0338_mastered.mp3");
+	player.play();
+	// TODO : play the song and sync it to the demo
 }
 
 //--------------------------------------------------------------
