@@ -4,7 +4,7 @@ bool started = false;
 //--------------------------------------------------------------
 void ofApp2::setup() {
 	ofSetFrameRate(60);
-	ofSetWindowTitle("butts");
+	ofSetWindowTitle("2020-09-04");
 	backgroundColorInitial.r = 190;
 	backgroundColorInitial.g = 190;
 	backgroundColorInitial.b = 240;
