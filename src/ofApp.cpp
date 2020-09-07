@@ -5,15 +5,15 @@ bool started = false;
 void ofApp2::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("2020-09-04");
-	backgroundColorInitial.r = 190;
-	backgroundColorInitial.g = 190;
-	backgroundColorInitial.b = 240;
-	backgroundColorInitial.a = 0;
+	//backgroundColorInitial.r = 190;
+	//backgroundColorInitial.g = 190;
+	//backgroundColorInitial.b = 240;
+	//backgroundColorInitial.a = 0;
 
-	backgroundColorFinal.r = 240;
-	backgroundColorFinal.g = 240;
-	backgroundColorFinal.b = 240;
-	backgroundColorFinal.a = 0;
+	//backgroundColorFinal.r = 240;
+	//backgroundColorFinal.g = 240;
+	//backgroundColorFinal.b = 240;
+	//backgroundColorFinal.a = 0;
 
 
 	meshes.resize(meshCount);
