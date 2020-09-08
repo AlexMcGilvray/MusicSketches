@@ -22,13 +22,18 @@ void ofApp2020_09_07::setup() {
 
 	ofBackground(backgroundColor);
 
-	const float Size = 400.f;
+	const float Size = 300.f;
 
 	testLines.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 
-	testLines.addVertex(glm::vec3(-Size, -Size, 0.f));
-	testLines.addVertex(glm::vec3(0.f, Size, 0.f));
-	testLines.addVertex(glm::vec3(Size, -Size, 0.f));
+	glm::vec3 firstVertex(-Size, -Size, 0.f);
+	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
+	//glm::vec3 secondVertex(0.f, Size, 0.f);
+	glm::vec3 thirdVertex(Size, -Size, 0.f);
+
+	testLines.addVertex(firstVertex);
+	testLines.addVertex(secondVertex);
+	testLines.addVertex(thirdVertex);
 
 	testLines.addColor(foregroundColor);
 	testLines.addColor(foregroundColor);
@@ -50,14 +55,14 @@ void ofApp2020_09_07::setup() {
 void ofApp2020_09_07::update() {
 
 
-
+	//currentRotation += 0.31f;
 }
 
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-
+	//ofRotateDeg(currentRotation);
 	testLines.draw();
 
 }
@@ -65,11 +70,6 @@ void ofApp2020_09_07::draw() {
 //--------------------------------------------------------------
 void ofApp2020_09_07::keyPressed(int key) {
 
-	//if (key == 'z')
-	//{
-	//	startTime = ofGetCurrentTime().getAsSeconds();
-	//	started = true;
-	//}
 }
 
 //--------------------------------------------------------------

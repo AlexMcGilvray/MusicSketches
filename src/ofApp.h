@@ -74,6 +74,7 @@ public:
 
 	ofMesh testLines;
 
+	float currentRotation = 0;
 
 };
 
