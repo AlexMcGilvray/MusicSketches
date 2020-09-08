@@ -5,24 +5,19 @@ void ofApp2020_09_07::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("2020-09-07 - Cubes rising");
 
-	/*foregroundColor.r = 190;
-	foregroundColor.g = 190;
-	foregroundColor.b = 240;
-	foregroundColor.a = 0;
+	shaderBlurX.load("ofApp2020_09_07/shaderBlurX");
+	shaderBlurY.load("ofApp2020_09_07/shaderBlurY");
 
-	backgroundColor.r = 240;
-	backgroundColor.g = 240;
-	backgroundColor.b = 240;
-	backgroundColor.a = 0;
-*/
-
+	 
+	fboBlurOnePass.allocate(ofGetWidth(), ofGetHeight());
+	fboBlurTwoPass.allocate(ofGetWidth(), ofGetHeight());
 
 	foregroundColor = ofColor::orange;
-	backgroundColor = ofColor::black;
+	backgroundColor = ofColor::grey;
 
 	ofBackground(backgroundColor);
 
-	const float Size = 300.f;
+	const float Size = 350.f;
 
 	testLines.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 
@@ -30,11 +25,9 @@ void ofApp2020_09_07::setup() {
 	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
 	glm::vec3 thirdVertex(Size, -Size, 0.f);
 
-	const float lengthThreshhold = 5.f;
+	const float lengthThreshhold = 10.f;
 
 	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
-
-	
 }
 
 
@@ -83,10 +76,31 @@ void ofApp2020_09_07::update() {
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
+
+	float blur = ofMap(mouseX, 0, ofGetWidth(), 0, 44, true);
+
+	fboBlurOnePass.begin();
+	shaderBlurX.begin();
+	shaderBlurX.setUniform1f("blurAmnt", blur);
+
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-	//ofRotateDeg(currentRotation);
 	testLines.draw();
 
+	shaderBlurX.end();
+	fboBlurOnePass.end();
+
+	fboBlurTwoPass.begin();
+	shaderBlurY.begin();
+	shaderBlurY.setUniform1f("blurAmnt", blur);
+
+	fboBlurOnePass.draw(0, 0);
+
+	shaderBlurY.end();
+	fboBlurTwoPass.end();
+
+	ofSetColor(ofColor::white);
+
+	fboBlurTwoPass.draw(0, 0);
 }
 
 //--------------------------------------------------------------

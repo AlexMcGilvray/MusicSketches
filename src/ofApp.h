@@ -80,5 +80,15 @@ public:
 
 	float currentRotation = 0;
 
+
+	ofShader shaderBlurX;
+	ofShader shaderBlurY;
+
+	ofFbo fboBlurOnePass;
+	ofFbo fboBlurTwoPass;
+
+	ofImage image;
+
+
 };
 

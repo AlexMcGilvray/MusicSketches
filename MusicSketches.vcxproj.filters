@@ -204,6 +204,12 @@
     <Filter Include="content">
       <UniqueIdentifier>{cf6b1515-5ad3-4c73-b9b2-7f0b2830b3dc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="data">
+      <UniqueIdentifier>{91b84b0b-4328-4675-88ef-c0b8c476f8ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\ofApp2020_09_07">
+      <UniqueIdentifier>{6d5c6d6c-c776-4a3d-8243-e195ddb3e66f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h">
@@ -1107,6 +1113,18 @@
   <ItemGroup>
     <CopyFileToFolders Include="content\DR0000_0338_mastered.mp3">
       <Filter>content</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.frag">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.vert">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.frag">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.vert">
+      <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

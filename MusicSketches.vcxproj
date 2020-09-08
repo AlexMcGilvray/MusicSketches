@@ -512,6 +512,24 @@
       <FileType>Document</FileType>
     </CopyFileToFolders>
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.frag">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.vert">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.frag">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.vert">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
+    </CopyFileToFolders>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ProjectExtensions>
     <VisualStudio>
