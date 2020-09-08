@@ -1126,5 +1126,11 @@
     <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.vert">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.vert">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.frag">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

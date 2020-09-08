@@ -86,6 +86,10 @@ public:
 
 	ofShader shaderBlurX;
 	ofShader shaderBlurY;
+	ofShader shaderBase;
+
+
+	ofFbo fboBlurBasePass;
 
 	ofFbo fboBlurOnePass;
 	ofFbo fboBlurTwoPass;
