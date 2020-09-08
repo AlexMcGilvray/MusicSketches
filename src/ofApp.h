@@ -76,10 +76,9 @@ public:
 	ofColor backgroundColor;
 	ofColor foregroundColor;
 
-	ofMesh testLines;
+	ofMesh triangleMesh;
 
-	float currentRotation = 0;
-
+	float triangleEdgeMidPointOffset = 0;
 
 	ofShader shaderBlurX;
 	ofShader shaderBlurY;

@@ -17,17 +17,10 @@ void ofApp2020_09_07::setup() {
 
 	ofBackground(backgroundColor);
 
-	const float Size = 350.f;
 
-	testLines.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
+	triangleMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 
-	glm::vec3 firstVertex(-Size, -Size, 0.f);
-	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
-	glm::vec3 thirdVertex(Size, -Size, 0.f);
 
-	const float lengthThreshhold = 10.f;
-
-	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
 }
 
 
@@ -39,24 +32,24 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 		return;
 	}
 
-	const int CurrentIndex = testLines.getNumVertices();
+	const int CurrentIndex = triangleMesh.getNumVertices();
 
-	testLines.addVertex(first);
-	testLines.addVertex(second);
-	testLines.addVertex(third);
+	triangleMesh.addVertex(first);
+	triangleMesh.addVertex(second);
+	triangleMesh.addVertex(third);
 
-	testLines.addColor(foregroundColor);
-	testLines.addColor(foregroundColor);
-	testLines.addColor(foregroundColor);
+	triangleMesh.addColor(foregroundColor);
+	triangleMesh.addColor(foregroundColor);
+	triangleMesh.addColor(foregroundColor);
 
-	testLines.addIndex(CurrentIndex + 0);
-	testLines.addIndex(CurrentIndex + 1);
+	triangleMesh.addIndex(CurrentIndex + 0);
+	triangleMesh.addIndex(CurrentIndex + 1);
 
-	testLines.addIndex(CurrentIndex + 1);
-	testLines.addIndex(CurrentIndex + 2);
+	triangleMesh.addIndex(CurrentIndex + 1);
+	triangleMesh.addIndex(CurrentIndex + 2);
 
-	testLines.addIndex(CurrentIndex + 2);
-	testLines.addIndex(CurrentIndex + 0);
+	triangleMesh.addIndex(CurrentIndex + 2);
+	triangleMesh.addIndex(CurrentIndex + 0);
 
 	const glm::vec3 nextFirst = glm::mix(first, second, 0.5f);
 	const glm::vec3 nextSecond = glm::mix(second, third, 0.5f);
@@ -69,6 +62,15 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 //--------------------------------------------------------------
 void ofApp2020_09_07::update() {
 
+	const float Size = 350.f;
+
+	glm::vec3 firstVertex(-Size, -Size, 0.f);
+	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
+	glm::vec3 thirdVertex(Size, -Size, 0.f);
+
+	const float lengthThreshhold = 10.f;
+
+	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
 
 	//currentRotation += 0.31f;
 }
@@ -84,7 +86,7 @@ void ofApp2020_09_07::draw() {
 	shaderBlurX.setUniform1f("blurAmnt", blur);
 
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-	testLines.draw();
+	triangleMesh.draw();
 
 	shaderBlurX.end();
 	fboBlurOnePass.end();
