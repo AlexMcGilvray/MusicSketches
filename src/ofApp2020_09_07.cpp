@@ -28,28 +28,34 @@ void ofApp2020_09_07::setup() {
 
 	glm::vec3 firstVertex(-Size, -Size, 0.f);
 	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
-	//glm::vec3 secondVertex(0.f, Size, 0.f);
 	glm::vec3 thirdVertex(Size, -Size, 0.f);
 
-	testLines.addVertex(firstVertex);
-	testLines.addVertex(secondVertex);
-	testLines.addVertex(thirdVertex);
-
-	testLines.addColor(foregroundColor);
-	testLines.addColor(foregroundColor);
-	testLines.addColor(foregroundColor);
-
-	testLines.addIndex(0);
-	testLines.addIndex(1);
-
-	testLines.addIndex(1);
-	testLines.addIndex(2);
-
-	testLines.addIndex(2);
-	testLines.addIndex(0);
+	generateInsetTriangle(firstVertex, secondVertex, thirdVertex);
 
 	
 }
+
+
+void ofApp2020_09_07::generateInsetTriangle(glm::vec3 first, glm::vec3 second, glm::vec3 third)
+{
+	testLines.addVertex(first);
+	testLines.addVertex(second);
+	testLines.addVertex(third);
+
+	testLines.addColor(foregroundColor);
+	testLines.addColor(foregroundColor);
+	testLines.addColor(foregroundColor);
+
+	testLines.addIndex(0);
+	testLines.addIndex(1);
+
+	testLines.addIndex(1);
+	testLines.addIndex(2);
+
+	testLines.addIndex(2);
+	testLines.addIndex(0);
+}
+
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::update() {
@@ -116,6 +122,7 @@ void ofApp2020_09_07::windowResized(int w, int h) {
 void ofApp2020_09_07::gotMessage(ofMessage msg) {
 
 }
+
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::dragEvent(ofDragInfo dragInfo) {

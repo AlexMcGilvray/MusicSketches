@@ -69,6 +69,10 @@ public:
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
+
+	void generateInsetTriangle(glm::vec3 first, glm::vec3 second, glm::vec3 third);
+
+
 	ofColor backgroundColor;
 	ofColor foregroundColor;
 
