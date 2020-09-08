@@ -8,26 +8,25 @@ void ofApp2020_09_07::setup() {
 	shaderBlurX.load("ofApp2020_09_07/shaderBlurX");
 	shaderBlurY.load("ofApp2020_09_07/shaderBlurY");
 
-	 
 	fboBlurOnePass.allocate(ofGetWidth(), ofGetHeight());
 	fboBlurTwoPass.allocate(ofGetWidth(), ofGetHeight());
 
 	foregroundColor = ofColor::orange;
-	backgroundColor = ofColor::grey;
+	backgroundColor = ofColor::black;
 
 	ofBackground(backgroundColor);
 
-
 	triangleMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
-
-
 }
 
 
 void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::vec3 second, const  glm::vec3 third, const float lengthThreshold)
 {
 	const float TriangleEdgeLength = glm::length(first - second);
-	if (TriangleEdgeLength < lengthThreshold)
+	if (
+		glm::length(first - second) < lengthThreshold || 
+		glm::length(second - third) < lengthThreshold ||
+		glm::length(first - third) < lengthThreshold )
 	{
 		return;
 	}
@@ -51,16 +50,19 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 	triangleMesh.addIndex(CurrentIndex + 2);
 	triangleMesh.addIndex(CurrentIndex + 0);
 
-	const glm::vec3 nextFirst = glm::mix(first, second, 0.5f);
-	const glm::vec3 nextSecond = glm::mix(second, third, 0.5f);
-	const glm::vec3 nextThird = glm::mix(third, first, 0.5f);
-
+	const glm::vec3 nextFirst = glm::mix(first, second, 0.5f + triangleEdgeMidPointOffset);
+	const glm::vec3 nextSecond = glm::mix(second, third, 0.5f + triangleEdgeMidPointOffset);
+	const glm::vec3 nextThird = glm::mix(third, first, 0.5f + triangleEdgeMidPointOffset);
 	generateInsetTriangle(nextFirst, nextSecond, nextThird, lengthThreshold);
 }
 
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::update() {
+
+	triangleMesh.clear();
+	auto curTime = ofGetCurrentTime();
+	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds())  / 2.3f;
 
 	const float Size = 350.f;
 
@@ -71,10 +73,7 @@ void ofApp2020_09_07::update() {
 	const float lengthThreshhold = 10.f;
 
 	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
-
-	//currentRotation += 0.31f;
 }
-
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
@@ -84,23 +83,22 @@ void ofApp2020_09_07::draw() {
 	fboBlurOnePass.begin();
 	shaderBlurX.begin();
 	shaderBlurX.setUniform1f("blurAmnt", blur);
-
+	ofClear(backgroundColor);
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	triangleMesh.draw();
-
 	shaderBlurX.end();
 	fboBlurOnePass.end();
 
 	fboBlurTwoPass.begin();
 	shaderBlurY.begin();
 	shaderBlurY.setUniform1f("blurAmnt", blur);
+	ofClear(backgroundColor);
 
 	fboBlurOnePass.draw(0, 0);
 
 	shaderBlurY.end();
 	fboBlurTwoPass.end();
 
-	ofSetColor(ofColor::white);
 
 	fboBlurTwoPass.draw(0, 0);
 }
