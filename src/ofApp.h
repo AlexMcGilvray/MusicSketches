@@ -70,7 +70,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 
-	void generateInsetTriangle(glm::vec3 first, glm::vec3 second, glm::vec3 third);
+	void generateInsetTriangle(const glm::vec3 first, const  glm::vec3 second, const  glm::vec3 third, const float lengthThreshold);
 
 
 	ofColor backgroundColor;

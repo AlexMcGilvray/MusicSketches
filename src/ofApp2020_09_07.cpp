@@ -30,14 +30,24 @@ void ofApp2020_09_07::setup() {
 	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
 	glm::vec3 thirdVertex(Size, -Size, 0.f);
 
-	generateInsetTriangle(firstVertex, secondVertex, thirdVertex);
+	const float lengthThreshhold = 5.f;
+
+	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
 
 	
 }
 
 
-void ofApp2020_09_07::generateInsetTriangle(glm::vec3 first, glm::vec3 second, glm::vec3 third)
+void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::vec3 second, const  glm::vec3 third, const float lengthThreshold)
 {
+	const float TriangleEdgeLength = glm::length(first - second);
+	if (TriangleEdgeLength < lengthThreshold)
+	{
+		return;
+	}
+
+	const int CurrentIndex = testLines.getNumVertices();
+
 	testLines.addVertex(first);
 	testLines.addVertex(second);
 	testLines.addVertex(third);
@@ -46,14 +56,20 @@ void ofApp2020_09_07::generateInsetTriangle(glm::vec3 first, glm::vec3 second, g
 	testLines.addColor(foregroundColor);
 	testLines.addColor(foregroundColor);
 
-	testLines.addIndex(0);
-	testLines.addIndex(1);
+	testLines.addIndex(CurrentIndex + 0);
+	testLines.addIndex(CurrentIndex + 1);
 
-	testLines.addIndex(1);
-	testLines.addIndex(2);
+	testLines.addIndex(CurrentIndex + 1);
+	testLines.addIndex(CurrentIndex + 2);
 
-	testLines.addIndex(2);
-	testLines.addIndex(0);
+	testLines.addIndex(CurrentIndex + 2);
+	testLines.addIndex(CurrentIndex + 0);
+
+	const glm::vec3 nextFirst = glm::mix(first, second, 0.5f);
+	const glm::vec3 nextSecond = glm::mix(second, third, 0.5f);
+	const glm::vec3 nextThird = glm::mix(third, first, 0.5f);
+
+	generateInsetTriangle(nextFirst, nextSecond, nextThird, lengthThreshold);
 }
 
 
