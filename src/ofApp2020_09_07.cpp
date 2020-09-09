@@ -63,7 +63,7 @@ void ofApp2020_09_07::update() {
 
 	triangleMesh.clear();
 	auto curTime = ofGetCurrentTime();
-	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds())  / 2.25f;
+	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds() / 3.f)  / 2.25f;
 
 	const float Size = 350.f;
 
@@ -79,7 +79,7 @@ void ofApp2020_09_07::update() {
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = sin(curTime.getAsSeconds()) / 2.f;
+	const float blur = (sin(curTime.getAsSeconds()) + 1.f) / 2.f;
 
 	fboBlurBasePass.begin();
 	shaderBase.begin();
