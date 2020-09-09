@@ -63,7 +63,7 @@ void ofApp2020_09_07::update() {
 
 	triangleMesh.clear();
 	auto curTime = ofGetCurrentTime();
-	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds())  / 2.3f;
+	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds())  / 2.25f;
 
 	const float Size = 350.f;
 
