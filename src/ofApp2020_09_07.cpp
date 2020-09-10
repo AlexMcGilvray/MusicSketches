@@ -144,7 +144,7 @@ void ofApp2020_09_07::updateLines()
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = (sin(curTime.getAsSeconds()) + 1.f) * 15.f + 10.f;
+	const float blur = (sin(curTime.getAsSeconds()) + 1.f) * 35.f + 10.f;
 	
 	// base pass
 	fboBlurBasePass.begin();
@@ -163,6 +163,7 @@ void ofApp2020_09_07::draw() {
 	shaderBlurX.setUniform1f("blurAmnt", blur);
 	ofClear(backgroundColor);
 	fboBlurBasePass.draw(0, 0);
+	triangleMesh.draw();
 	shaderBlurX.end();
 	fboBlurOnePass.end();
 
