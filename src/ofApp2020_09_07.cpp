@@ -1,4 +1,4 @@
-#include "ofApp.h"
+#include "ofApp2020_09_07.h"
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::setup() {
@@ -88,7 +88,6 @@ void ofApp2020_09_07::draw() {
 	triangleMesh.draw();
 	shaderBase.end();
 	fboBlurBasePass.end();
-
 
 	fboBlurOnePass.begin();
 	shaderBlurX.begin();
