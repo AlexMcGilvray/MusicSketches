@@ -77,7 +77,7 @@ void ofApp2020_09_07::update() {
 
 	triangleMesh.clear();
 	auto curTime = ofGetCurrentTime();
-	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds() / 3.f)  / 2.25f;
+	triangleEdgeMidPointOffset = sin(curTime.getAsSeconds() / 1.5f)  / 2.25f;
 
 	const float Size = 350.f;
 
@@ -152,6 +152,8 @@ void ofApp2020_09_07::draw() {
 	shaderBase.setUniform1f("yLine", yLine);
 	ofClear(backgroundColor);
 	lineMesh.draw();
+	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
+	triangleMesh.draw();
 	shaderBase.end();
 	fboBlurBasePass.end();
 
