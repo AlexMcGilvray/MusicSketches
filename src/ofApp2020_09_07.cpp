@@ -126,11 +126,11 @@ void ofApp2020_09_07::updateLines()
 		const float normalizedXCoord = line.xPos / viewportWidth;
 		const float lineAlpha = sin(normalizedXCoord * PI);
 		ofColor lineColorBottom = line.color;
-		lineColorBottom.a = ofClamp(255.f - ((lineAlpha * lineAlpha) * 255.f), 0.15f * 255.f, 0.35f * 255.f);
+		lineColorBottom.a = ofClamp(255.f - ((lineAlpha * lineAlpha) * 255.f), 0.1f * 255.f, 0.35f * 255.f);
 		lineColorBottom.a += ofRandomf() * 10.f;
 
 		ofColor lineColorTop = lineColorBottom;
-		lineColorTop.a = ofClamp(lineColorTop.a - 150, 0, 255);
+		lineColorTop.a = ofClamp(lineColorTop.a - 100, 0, 255);
 
 		lineMesh.addColor(lineColorTop);
 		lineMesh.addColor(lineColorBottom);
@@ -144,7 +144,7 @@ void ofApp2020_09_07::updateLines()
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = ((sin(curTime.getAsSeconds()) + 1.f)) ;
+	const float blur = (sin(curTime.getAsSeconds()) + 1.f) * 15.f + 10.f;
 	
 	// base pass
 	fboBlurBasePass.begin();
@@ -152,9 +152,6 @@ void ofApp2020_09_07::draw() {
 	shaderBase.setUniform1f("yLine", yLine);
 	ofClear(backgroundColor);
 	lineMesh.draw();
-
-	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
-	triangleMesh.draw();
 	shaderBase.end();
 	fboBlurBasePass.end();
 
@@ -178,7 +175,8 @@ void ofApp2020_09_07::draw() {
 
 	fboBlurTwoPass.draw(0, 0);
 
-
+	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
+	triangleMesh.draw();
 }
 
 
@@ -190,7 +188,7 @@ void ofApp2020_09_07::generateLines()
 		verticalLine line;
 		line.xPos = ofGetWidth() * ofRandom(0.f, 1.f);
 		line.speed = ofMap(ofRandom(0.f, 1.f), 0.f, 1.f, MaxSpeed / 15.f, MaxSpeed,true);
-		line.color = ofColor::blue;
+		line.color = ofColor::blueSteel;
 		line.isMovingRight = shouldMoveRight;
 		shouldMoveRight = !shouldMoveRight;
 		lines.push_back(line);

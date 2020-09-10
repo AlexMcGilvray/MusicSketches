@@ -25,7 +25,8 @@ public:
 		const glm::vec3 third,
 		const float lengthThreshold);
 
-	// how many function calls deep we are in the recursive generateInsetTriangle function
+	// how many function calls deep we are in the recursive 
+	// generateInsetTriangle function
 	int currentRecursionDepth = 0;
 
 	ofColor backgroundColor;
@@ -46,7 +47,7 @@ public:
 
 	//ofImage image;
 	const float MaxSpeed = 2.f;
-	const int NumLines = 255;
+	const int NumLines = 2255;
 	std::vector<verticalLine> lines;
 
 	// base pass uniforms
