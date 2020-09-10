@@ -109,10 +109,7 @@ void ofApp2020_09_07::updateLines()
 		{
 			line.isMovingRight = false;
 		}
-		const float normalizedXCoord = line.xPos / viewportWidth;
-		const float lineAlpha = sin(normalizedXCoord * PI);
-		line.color.a = ofClamp(255.f - ((lineAlpha * lineAlpha) * 255.f),0.15f * 255.f,0.65f * 255.f);
-		line.color.a += ofRandomf() * 10.f;
+
 	}
 	for (auto & line : lines)
 	{
@@ -123,12 +120,20 @@ void ofApp2020_09_07::updateLines()
 		lineBottom.y = ofGetHeight();
 		const int currentIndex = lineMesh.getNumVertices();
 
-
 		lineMesh.addVertex(lineTop);
 		lineMesh.addVertex(lineBottom);
 
-		lineMesh.addColor(line.color);
-		lineMesh.addColor(line.color);
+		const float normalizedXCoord = line.xPos / viewportWidth;
+		const float lineAlpha = sin(normalizedXCoord * PI);
+		ofColor lineColorBottom = line.color;
+		lineColorBottom.a = ofClamp(255.f - ((lineAlpha * lineAlpha) * 255.f), 0.15f * 255.f, 0.35f * 255.f);
+		lineColorBottom.a += ofRandomf() * 10.f;
+
+		ofColor lineColorTop = lineColorBottom;
+		lineColorTop.a = ofClamp(lineColorTop.a - 150, 0, 255);
+
+		lineMesh.addColor(lineColorTop);
+		lineMesh.addColor(lineColorBottom);
 
 		lineMesh.addIndex(currentIndex);
 		lineMesh.addIndex(currentIndex + 1);
@@ -139,13 +144,15 @@ void ofApp2020_09_07::updateLines()
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = ((sin(curTime.getAsSeconds()) + 1.f) / 2.f) ;
+	const float blur = ((sin(curTime.getAsSeconds()) + 1.f)) ;
 	
 	// base pass
 	fboBlurBasePass.begin();
 	shaderBase.begin();
 	shaderBase.setUniform1f("yLine", yLine);
 	ofClear(backgroundColor);
+	lineMesh.draw();
+
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	triangleMesh.draw();
 	shaderBase.end();
@@ -171,7 +178,6 @@ void ofApp2020_09_07::draw() {
 
 	fboBlurTwoPass.draw(0, 0);
 
-	lineMesh.draw();
 
 }
 
@@ -184,7 +190,7 @@ void ofApp2020_09_07::generateLines()
 		verticalLine line;
 		line.xPos = ofGetWidth() * ofRandom(0.f, 1.f);
 		line.speed = ofMap(ofRandom(0.f, 1.f), 0.f, 1.f, MaxSpeed / 15.f, MaxSpeed,true);
-		line.color = ofColor::green;
+		line.color = ofColor::blue;
 		line.isMovingRight = shouldMoveRight;
 		shouldMoveRight = !shouldMoveRight;
 		lines.push_back(line);

@@ -45,7 +45,7 @@ public:
 	ofFbo fboBlurTwoPass;
 
 	//ofImage image;
-	const float MaxSpeed = 5.f;
+	const float MaxSpeed = 2.f;
 	const int NumLines = 255;
 	std::vector<verticalLine> lines;
 

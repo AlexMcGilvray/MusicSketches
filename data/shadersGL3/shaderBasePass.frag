@@ -14,10 +14,10 @@ void main()
 {
 	
     vec4 color = vColorOut;
-	if (gl_FragCoord.x > yLine)
-	{
-		color = vec4(1);
-	} 
+//	if (gl_FragCoord.x > yLine)
+//	{
+//		color = vec4(1);
+//	} 
 
     outputColor = color;
 }
