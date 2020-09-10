@@ -8,10 +8,11 @@ void ofApp2020_09_07::setup() {
 	shaderBlurX.load("ofApp2020_09_07/shaderBlurX");
 	shaderBlurY.load("ofApp2020_09_07/shaderBlurY");
 	shaderBase.load("ofApp2020_09_07/shaderBasePass");
+	fboBlurOnePass.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+	fboBlurTwoPass.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
+	fboBlurBasePass.allocate(ofGetWidth(), ofGetHeight(), GL_RGBA);
 
-	fboBlurOnePass.allocate(ofGetWidth(), ofGetHeight());
-	fboBlurTwoPass.allocate(ofGetWidth(), ofGetHeight());
-	fboBlurBasePass.allocate(ofGetWidth(), ofGetHeight());
+	yLine = ofGetWidth() / 2;
 
 	foregroundColor = ofColor::orange;
 	backgroundColor = ofColor::black;
@@ -45,9 +46,9 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 	const float modifiedBrightness = ofClamp(foregroundBrightness - currentRecursionDepth * 10, 25.f, foregroundBrightness);
 	modifiedForegroundColor.setBrightness(modifiedBrightness);
 
-	triangleMesh.addColor(modifiedForegroundColor);
-	triangleMesh.addColor(modifiedForegroundColor);
-	triangleMesh.addColor(modifiedForegroundColor);
+	triangleMesh.addColor(foregroundColor);
+	triangleMesh.addColor(foregroundColor);
+	triangleMesh.addColor(foregroundColor);
 
 	triangleMesh.addIndex(CurrentIndex + 0);
 	triangleMesh.addIndex(CurrentIndex + 1);
@@ -89,10 +90,11 @@ void ofApp2020_09_07::update() {
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
 	const float blur = ((sin(curTime.getAsSeconds()) + 1.f) / 2.f) / 2.f;
-
+	
 	// base pass
 	fboBlurBasePass.begin();
 	shaderBase.begin();
+	shaderBase.setUniform1f("yLine", yLine);
 	ofClear(backgroundColor);
 	ofTranslate(ofGetWidth() * 0.5, ofGetHeight() * 0.5);
 	triangleMesh.draw();

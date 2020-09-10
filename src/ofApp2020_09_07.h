@@ -37,4 +37,7 @@ public:
 	ofFbo fboBlurTwoPass;
 
 	ofImage image;
+
+	// base pass uniforms
+	float yLine;
 };
