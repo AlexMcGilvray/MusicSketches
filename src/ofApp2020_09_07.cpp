@@ -4,6 +4,7 @@
 void ofApp2020_09_07::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("2020-09-07 - Cubes rising");
+	ofSeedRandom();
 
 	shaderBlurX.load("ofApp2020_09_07/shaderBlurX");
 	shaderBlurY.load("ofApp2020_09_07/shaderBlurY");
@@ -19,7 +20,10 @@ void ofApp2020_09_07::setup() {
 
 	ofBackground(backgroundColor);
 
+	generateLines();
+
 	triangleMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
+	lineMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 }
 
 
@@ -84,12 +88,58 @@ void ofApp2020_09_07::update() {
 	const float lengthThreshhold = 10.f;
 
 	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
+	updateLines();
 }
+
+void ofApp2020_09_07::updateLines()
+{
+	lineMesh.clear();
+	const float viewportWidth = ofGetWidth();
+	for (auto & line : lines)
+	{
+		const float direction = line.isMovingRight ? 1.f : -1.f;
+		const float velocity = direction * line.speed;
+		line.xPos = ofClamp(line.xPos + velocity, 0.f, viewportWidth);
+		const float epsilon = 0.25f;
+		if (line.xPos < epsilon)
+		{
+			line.isMovingRight = true;
+		}
+		else if (line.xPos > viewportWidth - epsilon)
+		{
+			line.isMovingRight = false;
+		}
+		const float normalizedXCoord = line.xPos / viewportWidth;
+		const float lineAlpha = sin(normalizedXCoord * PI);
+		line.color.a = ofClamp(255.f - ((lineAlpha * lineAlpha) * 255.f),0.15f * 255.f,0.65f * 255.f);
+		line.color.a += ofRandomf() * 10.f;
+	}
+	for (auto & line : lines)
+	{
+		glm::vec3 lineTop, lineBottom;
+		lineTop.x = line.xPos;
+		lineTop.y = 0;
+		lineBottom.x = line.xPos;
+		lineBottom.y = ofGetHeight();
+		const int currentIndex = lineMesh.getNumVertices();
+
+
+		lineMesh.addVertex(lineTop);
+		lineMesh.addVertex(lineBottom);
+
+		lineMesh.addColor(line.color);
+		lineMesh.addColor(line.color);
+
+		lineMesh.addIndex(currentIndex);
+		lineMesh.addIndex(currentIndex + 1);
+	}
+}
+
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = ((sin(curTime.getAsSeconds()) + 1.f) / 2.f) / 2.f;
+	const float blur = ((sin(curTime.getAsSeconds()) + 1.f) / 2.f) ;
 	
 	// base pass
 	fboBlurBasePass.begin();
@@ -120,4 +170,23 @@ void ofApp2020_09_07::draw() {
 	fboBlurTwoPass.end();
 
 	fboBlurTwoPass.draw(0, 0);
+
+	lineMesh.draw();
+
+}
+
+
+void ofApp2020_09_07::generateLines()
+{
+	bool shouldMoveRight = true;
+	for (int i = 0; i < NumLines; ++i)
+	{
+		verticalLine line;
+		line.xPos = ofGetWidth() * ofRandom(0.f, 1.f);
+		line.speed = ofMap(ofRandom(0.f, 1.f), 0.f, 1.f, MaxSpeed / 15.f, MaxSpeed,true);
+		line.color = ofColor::green;
+		line.isMovingRight = shouldMoveRight;
+		shouldMoveRight = !shouldMoveRight;
+		lines.push_back(line);
+	}
 }
