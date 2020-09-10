@@ -15,6 +15,9 @@ public:
 		const glm::vec3 third,
 		const float lengthThreshold);
 
+	// how many function calls deep we are in the recursive generateInsetTriangle function
+	int currentRecursionDepth = 0;
+
 
 	ofColor backgroundColor;
 	ofColor foregroundColor;

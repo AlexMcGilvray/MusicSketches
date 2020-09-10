@@ -38,9 +38,16 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 	triangleMesh.addVertex(second);
 	triangleMesh.addVertex(third);
 
-	triangleMesh.addColor(foregroundColor);
-	triangleMesh.addColor(foregroundColor);
-	triangleMesh.addColor(foregroundColor);
+	// the more depth we have the more we darken
+	ofColor modifiedForegroundColor = foregroundColor;
+
+	const float foregroundBrightness = foregroundColor.getBrightness();
+	const float modifiedBrightness = ofClamp(foregroundBrightness - currentRecursionDepth * 10, 25.f, foregroundBrightness);
+	modifiedForegroundColor.setBrightness(modifiedBrightness);
+
+	triangleMesh.addColor(modifiedForegroundColor);
+	triangleMesh.addColor(modifiedForegroundColor);
+	triangleMesh.addColor(modifiedForegroundColor);
 
 	triangleMesh.addIndex(CurrentIndex + 0);
 	triangleMesh.addIndex(CurrentIndex + 1);
@@ -54,9 +61,11 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 	const glm::vec3 nextFirst = glm::mix(first, second, 0.5f + triangleEdgeMidPointOffset);
 	const glm::vec3 nextSecond = glm::mix(second, third, 0.5f + triangleEdgeMidPointOffset);
 	const glm::vec3 nextThird = glm::mix(third, first, 0.5f + triangleEdgeMidPointOffset);
-	generateInsetTriangle(nextFirst, nextSecond, nextThird, lengthThreshold);
-}
 
+	currentRecursionDepth++;
+	generateInsetTriangle(nextFirst, nextSecond, nextThird, lengthThreshold);
+	currentRecursionDepth--;
+}
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::update() {
@@ -79,7 +88,8 @@ void ofApp2020_09_07::update() {
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
-	const float blur = (sin(curTime.getAsSeconds()) + 1.f) / 2.f;
+	const float blur = ((sin(curTime.getAsSeconds()) + 1.f) / 2.f) / 2.f;
+
 	// base pass
 	fboBlurBasePass.begin();
 	shaderBase.begin();
@@ -88,6 +98,7 @@ void ofApp2020_09_07::draw() {
 	triangleMesh.draw();
 	shaderBase.end();
 	fboBlurBasePass.end();
+
 	// horizontal blur pass
 	fboBlurOnePass.begin();
 	shaderBlurX.begin();
@@ -96,6 +107,7 @@ void ofApp2020_09_07::draw() {
 	fboBlurBasePass.draw(0, 0);
 	shaderBlurX.end();
 	fboBlurOnePass.end();
+
 	// vertical blur pass
 	fboBlurTwoPass.begin();
 	shaderBlurY.begin();
