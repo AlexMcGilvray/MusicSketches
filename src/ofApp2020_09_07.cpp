@@ -111,7 +111,7 @@ void ofApp2020_09_07::updateLines()
 		}
 
 	}
-	for (auto & line : lines)
+	for (const auto & line : lines)
 	{
 		glm::vec3 lineTop, lineBottom;
 		lineTop.x = line.xPos;
