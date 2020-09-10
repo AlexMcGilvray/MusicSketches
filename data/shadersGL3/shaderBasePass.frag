@@ -11,7 +11,6 @@ out vec4 outputColor;
 
 void main()
 {
-
     vec4 color = vColorOut;
 		
     outputColor = color;

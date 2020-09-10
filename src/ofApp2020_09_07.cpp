@@ -80,7 +80,7 @@ void ofApp2020_09_07::update() {
 void ofApp2020_09_07::draw() {
 	auto curTime = ofGetCurrentTime();
 	const float blur = (sin(curTime.getAsSeconds()) + 1.f) / 2.f;
-
+	// base pass
 	fboBlurBasePass.begin();
 	shaderBase.begin();
 	ofClear(backgroundColor);
@@ -88,7 +88,7 @@ void ofApp2020_09_07::draw() {
 	triangleMesh.draw();
 	shaderBase.end();
 	fboBlurBasePass.end();
-
+	// horizontal blur pass
 	fboBlurOnePass.begin();
 	shaderBlurX.begin();
 	shaderBlurX.setUniform1f("blurAmnt", blur);
@@ -96,28 +96,14 @@ void ofApp2020_09_07::draw() {
 	fboBlurBasePass.draw(0, 0);
 	shaderBlurX.end();
 	fboBlurOnePass.end();
-
+	// vertical blur pass
 	fboBlurTwoPass.begin();
 	shaderBlurY.begin();
 	shaderBlurY.setUniform1f("blurAmnt", blur);
 	ofClear(backgroundColor);
-
 	fboBlurOnePass.draw(0, 0);
-
 	shaderBlurY.end();
 	fboBlurTwoPass.end();
 
 	fboBlurTwoPass.draw(0, 0);
-}
-
-
-
-//--------------------------------------------------------------
-void ofApp2020_09_07::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2020_09_07::gotMessage(ofMessage msg) {
-
 }

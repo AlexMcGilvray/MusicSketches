@@ -5,16 +5,6 @@ bool started = false;
 void ofApp2::setup() {
 	ofSetFrameRate(60);
 	ofSetWindowTitle("2020-09-04");
-	//backgroundColorInitial.r = 190;
-	//backgroundColorInitial.g = 190;
-	//backgroundColorInitial.b = 240;
-	//backgroundColorInitial.a = 0;
-
-	//backgroundColorFinal.r = 240;
-	//backgroundColorFinal.g = 240;
-	//backgroundColorFinal.b = 240;
-	//backgroundColorFinal.a = 0;
-
 
 	meshes.resize(meshCount);
 	for (auto && mesh : meshes)
@@ -26,7 +16,6 @@ void ofApp2::setup() {
 	
 	player.load("../DR0000_0338_mastered.mp3");
 	player.play();
-	// TODO : play the song and sync it to the demo
 }
 
 //--------------------------------------------------------------
@@ -125,67 +114,7 @@ void ofApp2::draw() {
 	//ofDrawBitmapString("squareSizeMultiplier: " + ofToString(squareSizeMultiplier), 10, 10);
 }
 
-//--------------------------------------------------------------
-void ofApp2::keyPressed(int key) {
-	
-	//if (key == 'z')
-	//{
-	//	startTime = ofGetCurrentTime().getAsSeconds();
-	//	started = true;
-	//}
-}
-
-//--------------------------------------------------------------
-void ofApp2::keyReleased(int key) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mouseMoved(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mouseDragged(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mousePressed(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mouseReleased(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mouseEntered(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::mouseExited(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp2::gotMessage(ofMessage msg) {
-
-}
-
 float ofApp2::getNormalizedSongPosition() const
 {
 	  return ofClamp(currentTimeThroughSong / SongLength, 0.f, 1.f); 
-}
-
-//--------------------------------------------------------------
-void ofApp2::dragEvent(ofDragInfo dragInfo) {
-
 }
