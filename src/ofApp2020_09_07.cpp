@@ -26,7 +26,6 @@ void ofApp2020_09_07::setup() {
 	lineMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 }
 
-
 void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::vec3 second, const  glm::vec3 third, const float lengthThreshold)
 {
 	if (
@@ -72,6 +71,21 @@ void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::v
 	currentRecursionDepth--;
 }
 
+void ofApp2020_09_07::generateLines()
+{
+	bool shouldMoveRight = true;
+	for (int i = 0; i < NumLines; ++i)
+	{
+		verticalLine line;
+		line.xPos = ofGetWidth() * ofRandom(0.f, 1.f);
+		line.speed = ofMap(ofRandom(0.f, 1.f), 0.f, 1.f, MaxSpeed / 15.f, MaxSpeed, true);
+		line.color = ofColor::blueSteel;
+		line.isMovingRight = shouldMoveRight;
+		shouldMoveRight = !shouldMoveRight;
+		lines.push_back(line);
+	}
+}
+
 //--------------------------------------------------------------
 void ofApp2020_09_07::update() {
 
@@ -85,7 +99,7 @@ void ofApp2020_09_07::update() {
 	glm::vec3 secondVertex(0.f, glm::length(firstVertex), 0.f);
 	glm::vec3 thirdVertex(Size, -Size, 0.f);
 
-	const float lengthThreshhold = 10.f;
+	const float lengthThreshhold = 1.f;
 
 	generateInsetTriangle(firstVertex, secondVertex, thirdVertex, lengthThreshhold);
 	updateLines();
@@ -163,7 +177,6 @@ void ofApp2020_09_07::draw() {
 	shaderBlurX.setUniform1f("blurAmnt", blur);
 	ofClear(backgroundColor);
 	fboBlurBasePass.draw(0, 0);
-	triangleMesh.draw();
 	shaderBlurX.end();
 	fboBlurOnePass.end();
 
@@ -183,17 +196,3 @@ void ofApp2020_09_07::draw() {
 }
 
 
-void ofApp2020_09_07::generateLines()
-{
-	bool shouldMoveRight = true;
-	for (int i = 0; i < NumLines; ++i)
-	{
-		verticalLine line;
-		line.xPos = ofGetWidth() * ofRandom(0.f, 1.f);
-		line.speed = ofMap(ofRandom(0.f, 1.f), 0.f, 1.f, MaxSpeed / 15.f, MaxSpeed,true);
-		line.color = ofColor::blueSteel;
-		line.isMovingRight = shouldMoveRight;
-		shouldMoveRight = !shouldMoveRight;
-		lines.push_back(line);
-	}
-}
