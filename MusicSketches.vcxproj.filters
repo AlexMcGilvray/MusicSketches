@@ -1117,22 +1117,22 @@
     <CopyFileToFolders Include="content\DR0000_0338_mastered.mp3">
       <Filter>content</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.frag">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBasePass.frag">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBasePass.vert">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.frag">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurX.frag">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurX.vert">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurY.frag">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.frag">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurY.vert">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
   </ItemGroup>

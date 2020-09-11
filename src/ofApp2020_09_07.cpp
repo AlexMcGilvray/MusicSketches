@@ -161,7 +161,6 @@ void ofApp2020_09_07::draw() {
 	const float blur = (sin(curTime.getAsSeconds()) + 1.f) * 35.f + 10.f;
 	const float translateOffset = (sin(curTime.getAsSeconds()) * 15.f) - 40.f;
 
-
 	// base pass
 	fboBlurBasePass.begin();
 	shaderBase.begin();

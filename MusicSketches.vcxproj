@@ -514,29 +514,27 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.frag">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBasePass.frag">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurX.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBasePass.vert">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.frag">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurX.frag">
+      <FileType>Document</FileType>
+      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurX.vert">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBlurY.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurY.frag">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.frag">
-      <FileType>Document</FileType>
-      <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="data\shadersGL3\shaderBasePass.vert">
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurY.vert">
       <FileType>Document</FileType>
       <DestinationFolders Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)/data/ofApp2020_09_07</DestinationFolders>
     </CopyFileToFolders>
