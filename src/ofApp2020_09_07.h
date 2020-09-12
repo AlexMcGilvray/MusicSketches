@@ -52,4 +52,7 @@ public:
 
 	// base pass uniforms
 	float yLine;
+
+
+	ofSoundPlayer player;
 };

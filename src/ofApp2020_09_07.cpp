@@ -24,6 +24,10 @@ void ofApp2020_09_07::setup() {
 
 	triangleMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
 	lineMesh.setMode(ofPrimitiveMode::OF_PRIMITIVE_LINES);
+
+
+	player.load("ofApp2020_09_07/sound.mp3");
+	player.play();
 }
 
 void ofApp2020_09_07::generateInsetTriangle(const glm::vec3 first, const  glm::vec3 second, const  glm::vec3 third, const float lengthThreshold)

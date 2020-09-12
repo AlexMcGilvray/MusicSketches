@@ -1135,5 +1135,8 @@
     <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\shaderBlurY.vert">
       <Filter>data\ofApp2020_09_07</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="data\shadersGL3\ofApp2020_09_07\sound.mp3">
+      <Filter>data\ofApp2020_09_07</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
