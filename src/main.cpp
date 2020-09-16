@@ -11,6 +11,7 @@ int main( ){
 	ofGLWindowSettings settings;
 	settings.setGLVersion(3, 2);
 	settings.setSize(1920, 1080);
+	settings.windowMode = ofWindowMode::OF_FULLSCREEN;
 	ofCreateWindow(settings);
 
 

@@ -161,7 +161,7 @@ void ofApp2020_09_07::updateLines()
 
 //--------------------------------------------------------------
 void ofApp2020_09_07::draw() {
-	auto curTime = ofGetCurrentTime();
+	const auto curTime = ofGetCurrentTime();
 	const float blur = (sin(curTime.getAsSeconds()) + 1.f) * 35.f + 10.f;
 	const float translateOffset = (sin(curTime.getAsSeconds()) * 15.f) - 40.f;
 
