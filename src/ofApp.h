@@ -9,9 +9,6 @@ public:
 	void update();
 	void draw();
 
-	void windowResized(int w, int h);
-	void gotMessage(ofMessage msg);
-
 	ofSoundPlayer player;
 
 	//ofMesh mesh;

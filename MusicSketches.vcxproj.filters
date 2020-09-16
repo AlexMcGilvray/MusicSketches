@@ -37,6 +37,9 @@
     <ClCompile Include="src\ofApp2020_09_07.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\ofApp2020_09_15.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -209,6 +212,9 @@
     </Filter>
     <Filter Include="data\ofApp2020_09_07">
       <UniqueIdentifier>{6d5c6d6c-c776-4a3d-8243-e195ddb3e66f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data\ofApp2020_09_15">
+      <UniqueIdentifier>{c0851439-e511-41cf-8b84-18009f2053b6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1107,6 +1113,9 @@
       <Filter>addons\ofxVectorGraphics\libs</Filter>
     </ClInclude>
     <ClInclude Include="src\ofApp2020_09_07.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ofApp2020_09_15.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
