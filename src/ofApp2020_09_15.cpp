@@ -12,13 +12,15 @@ void makeQuad(ofMesh & cubeFieldMesh, const glm::vec3 topLeft, const glm::vec3 t
 	cubeFieldMesh.addColor(color);
 	cubeFieldMesh.addColor(color);
 
-	cubeFieldMesh.addIndex(0);
-	cubeFieldMesh.addIndex(2);
-	cubeFieldMesh.addIndex(1);
+	const int currentIndex = cubeFieldMesh.getNumVertices();
 
-	cubeFieldMesh.addIndex(2);
-	cubeFieldMesh.addIndex(3);
-	cubeFieldMesh.addIndex(1);
+	cubeFieldMesh.addIndex(currentIndex);
+	cubeFieldMesh.addIndex(currentIndex + 2);
+	cubeFieldMesh.addIndex(currentIndex + 1);
+
+	cubeFieldMesh.addIndex(currentIndex + 2);
+	cubeFieldMesh.addIndex(currentIndex + 3);
+	cubeFieldMesh.addIndex(currentIndex + 1);
 }
 
 void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cubeSize)
@@ -34,7 +36,10 @@ void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cube
 	const float cubeZMin = cubeCenter.z - cubeHalfSize;
 	const float cubeZMax = cubeCenter.z + cubeHalfSize;
 	
-	const ofColor color = ofColor::pink;
+	static bool colorSwitcher = true;
+
+	ofColor color = colorSwitcher  ? ofColor::grey : ofColor::darkGrey;
+	colorSwitcher = !colorSwitcher;
 
 	makeQuad(
 		cubeFieldMesh, 
@@ -48,9 +53,8 @@ void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cube
 void ofApp2020_09_15::setup()
 {
 	ofEnableDepthTest();
-
+	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
-
 	for (int y = 0; y < cubeFieldDimensions; ++y)
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
@@ -59,6 +63,7 @@ void ofApp2020_09_15::setup()
 			cubeCenter.x = x * cubeSize;
 			cubeCenter.z = y * cubeSize;
 			cubeCenter.y = 0.f;
+				
 			makeCube(cubeFieldMesh,cubeCenter,cubeSize);
 		}
 	}
