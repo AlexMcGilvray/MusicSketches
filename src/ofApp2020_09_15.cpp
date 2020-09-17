@@ -35,11 +35,8 @@ void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cube
 
 	const float cubeZMin = cubeCenter.z - cubeHalfSize;
 	const float cubeZMax = cubeCenter.z + cubeHalfSize;
-	
-	static bool colorSwitcher = true;
-
-	ofColor color = colorSwitcher  ? ofColor::grey : ofColor::darkGrey;
-	colorSwitcher = !colorSwitcher;
+ 
+	ofColor color = ofColor::grey;
 
 	makeQuad(
 		cubeFieldMesh, 
@@ -55,6 +52,13 @@ void ofApp2020_09_15::setup()
 	ofEnableDepthTest();
 	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+
+
+}
+
+void ofApp2020_09_15::update()
+{
+	peakHeightOsc.update();
 
 	auto getPeakFalloff = [this](int x, int y) -> float
 	{
@@ -72,27 +76,25 @@ void ofApp2020_09_15::setup()
 		}
 	};
 
-	peakX = ofRandom(0, cubeFieldDimensions);
-	peakY = ofRandom(0, cubeFieldDimensions);
-	
+	peakX = 3;
+	peakY = 3;
+
+	cubeFieldMesh.clear();
+
 	for (int y = 0; y < cubeFieldDimensions; ++y)
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
-			const float tempHeightModifer = getPeakFalloff(x, y) * peakHeight;
+			const float tempHeightModifer = getPeakFalloff(x, y) *(peakHeight * peakHeightOsc.getValue());
 
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize;
 			cubeCenter.z = y * cubeSize;
 			cubeCenter.y = tempHeightModifer;
-				
-			makeCube(cubeFieldMesh,cubeCenter,cubeSize);
+
+			makeCube(cubeFieldMesh, cubeCenter, cubeSize);
 		}
 	}
-}
-
-void ofApp2020_09_15::update()
-{
 }
 
 
