@@ -55,14 +55,17 @@ void ofApp2020_09_15::setup()
 	ofEnableDepthTest();
 	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+	
 	for (int y = 0; y < cubeFieldDimensions; ++y)
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
+			const float tempHeightModifer = ofRandom(0.f, 500.f);
+
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize;
 			cubeCenter.z = y * cubeSize;
-			cubeCenter.y = 0.f;
+			cubeCenter.y = tempHeightModifer;
 				
 			makeCube(cubeFieldMesh,cubeCenter,cubeSize);
 		}
