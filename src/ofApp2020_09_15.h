@@ -10,7 +10,7 @@ public:
 	{
 		currentValue = sin(ofGetElapsedTimef());
 	}
-	float getValue() 
+	float getValue() const
 	{ 
 		if (nonNegative)
 		{
@@ -26,7 +26,6 @@ public:
 	bool nonNegative = true;
 };
 
-
 class ofApp2020_09_15 : public ofBaseApp {
 
 public:
@@ -37,6 +36,10 @@ public:
 	virtual void keyPressed(ofKeyEventArgs & key) override;
 	virtual void keyReleased(ofKeyEventArgs & key) override;
 
+	float getOscValue() const
+	{
+		return ofMap(peakHeightOsc.getValue(), 0.f, 1.f, oscMin, oscMax);
+	}
 
 	virtual void mouseDragged(int x, int y, int button) override;
 
@@ -58,6 +61,8 @@ private: // animation variables
 	float peakMoveTimer;
 	const float peakMoveTimerBaseTarget = 1.0f; // seconds
 	prototypeOscillator peakHeightOsc;
+	const float oscMin = 0.4f;
+	const float oscMax = 1.0f;
 
 private: // debug camera
 	glm::vec3 cameraTranslation;

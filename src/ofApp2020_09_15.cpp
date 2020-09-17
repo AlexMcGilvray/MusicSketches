@@ -61,8 +61,8 @@ void ofApp2020_09_15::setup()
 	cameraTranslation.y = -509.f;
 	cameraTranslation.z = -3734.f;
 
-	backgroundColor = ofColor::darkGrey;
-	foregroundColor = ofColor::grey;
+	backgroundColor = ofColor::black;
+	foregroundColor = ofColor::darkorange;
 
 	ofBackground(backgroundColor);
 }
@@ -99,7 +99,7 @@ void ofApp2020_09_15::update()
 	{
 		for (int x = 0; x < planeFieldDimensions; ++x)
 		{
-			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
+			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * getOscValue());
 
 			if (planeHeight <= renderingHeightThreshold)
 			{
@@ -120,7 +120,7 @@ void ofApp2020_09_15::update()
 	{
 		for (int x = 0; x < planeFieldDimensions; ++x)
 		{
-			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
+			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * getOscValue());
 
 			if (planeHeight <= renderingHeightThreshold)
 			{
