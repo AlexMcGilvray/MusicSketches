@@ -76,8 +76,8 @@ void ofApp2020_09_15::update()
 		}
 	};
 
-	peakX = 3;
-	peakY = 3;
+	peakX = ofRandom(0,cubeFieldDimensions);
+	peakY = ofRandom(0, cubeFieldDimensions);
 
 	cubeFieldMesh.clear();
 
@@ -96,7 +96,6 @@ void ofApp2020_09_15::update()
 		}
 	}
 }
-
 
 void ofApp2020_09_15::draw()
 {

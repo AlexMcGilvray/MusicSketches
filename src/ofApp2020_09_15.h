@@ -37,15 +37,15 @@ public:
 
 private: // cubes mesh
 	ofMesh cubeFieldMesh;
-	const int cubeFieldDimensions = 9;
-	const int cubeSize = 100;
+	const int cubeFieldDimensions = 100;
+	const int cubeSize = 20;
 	ofEasyCam cam;
 
 private: // peak stuff
 	int peakX;
 	int peakY;
-	const int peakFalloff = 3;
-	const float peakHeight = 100.f;
+	const int peakFalloff = 30;
+	const float peakHeight = 1000.f;
 
 private: // animation variables
 	float peakMoveTimer;
