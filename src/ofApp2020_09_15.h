@@ -67,4 +67,7 @@ private: // debug input
 	// todo : that's enough keys, maybe change this to a map
 	bool isWDown, isADown, isSDown, isDDown,isQDown,isEDown;
 
+private: //styling
+	ofColor backgroundColor;
+	ofColor foregroundColor;
 };
