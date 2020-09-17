@@ -2,6 +2,8 @@
 
 void makeQuad(ofMesh & cubeFieldMesh, const glm::vec3 topLeft, const glm::vec3 topRight, const glm::vec3 bottomLeft, const glm::vec3 bottomRight, const ofColor color)
 {
+	const int currentIndex = cubeFieldMesh.getNumVertices();
+
 	cubeFieldMesh.addVertex(topLeft);
 	cubeFieldMesh.addVertex(topRight);
 	cubeFieldMesh.addVertex(bottomLeft);
@@ -11,8 +13,6 @@ void makeQuad(ofMesh & cubeFieldMesh, const glm::vec3 topLeft, const glm::vec3 t
 	cubeFieldMesh.addColor(color);
 	cubeFieldMesh.addColor(color);
 	cubeFieldMesh.addColor(color);
-
-	const int currentIndex = cubeFieldMesh.getNumVertices();
 
 	cubeFieldMesh.addIndex(currentIndex);
 	cubeFieldMesh.addIndex(currentIndex + 2);
@@ -60,7 +60,7 @@ void ofApp2020_09_15::setup()
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
-			const float tempHeightModifer = ofRandom(0.f, 500.f);
+			const float tempHeightModifer = ofRandom(0.f, 50.f);
 
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize;

@@ -13,7 +13,7 @@ public:
 
 private: // cubes mesh
 	ofMesh cubeFieldMesh;
-	const int cubeFieldDimensions = 10;
+	const int cubeFieldDimensions = 9;
 	const int cubeSize = 100;
 	ofEasyCam cam;
 };
