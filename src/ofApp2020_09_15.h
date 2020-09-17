@@ -63,6 +63,6 @@ private: // debug camera
 	const float cameraSpeed = 20.f;
 
 private: // debug input
-	bool isWDown, isADown, isSDown, isDDown;
+	bool isWDown, isADown, isSDown, isDDown,isQDown,isEDown;
 
 };

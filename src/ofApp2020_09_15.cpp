@@ -119,7 +119,14 @@ void ofApp2020_09_15::update()
 	{
 		cameraTranslation.x += timeAdjustedCameraSpeed;
 	}
-
+	if (isQDown)
+	{
+		cameraTranslation.y -= timeAdjustedCameraSpeed;
+	}
+	if (isEDown)
+	{
+		cameraTranslation.y += timeAdjustedCameraSpeed;
+	}
 }
 
 void ofApp2020_09_15::draw()
@@ -156,6 +163,14 @@ void ofApp2020_09_15::keyPressed(ofKeyEventArgs & key)
 	{
 		isDDown = true;
 	}
+	if (key.key == 'q')
+	{
+		isQDown = true;
+	}
+	if (key.key == 'e')
+	{
+		isEDown = true;
+	}
 }
 
 void ofApp2020_09_15::keyReleased(ofKeyEventArgs & key)
@@ -175,5 +190,13 @@ void ofApp2020_09_15::keyReleased(ofKeyEventArgs & key)
 	if (key.key == 'd')
 	{
 		isDDown = false;
+	}
+	if (key.key == 'q')
+	{
+		isQDown = false;
+	}
+	if (key.key == 'e')
+	{
+		isEDown = false;
 	}
 }
