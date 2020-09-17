@@ -14,7 +14,7 @@ public:
 	{ 
 		if (nonNegative)
 		{
-			return std::abs(currentValue);
+			return (1.f + currentValue) / 2.f;
 		}
 		else
 		{
