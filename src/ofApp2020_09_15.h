@@ -35,11 +35,17 @@ public:
 	void update() override;
 	void draw() override;
 
+
+	virtual void keyPressed(ofKeyEventArgs & key) override;
+
+
+	virtual void keyReleased(ofKeyEventArgs & key) override;
+
 private: // cubes mesh
 	ofMesh cubeFieldMesh;
 	const int cubeFieldDimensions = 100;
 	const int cubeSize = 20;
-	ofEasyCam cam;
+	//ofEasyCam cam;
 
 private: // peak stuff
 	int peakX;
@@ -51,5 +57,12 @@ private: // animation variables
 	float peakMoveTimer;
 	const float peakMoveTimerBaseTarget = 1.0f; // seconds
 	prototypeOscillator peakHeightOsc;
+
+private: // debug camera
+	glm::vec3 cameraTranslation;
+	const float cameraSpeed = 20.f;
+
+private: // debug input
+	bool isWDown, isADown, isSDown, isDDown;
 
 };

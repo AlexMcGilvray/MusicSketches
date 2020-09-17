@@ -1,6 +1,12 @@
 #include "ofApp2020_09_15.h"
 
-void makeQuad(ofMesh & cubeFieldMesh, const glm::vec3 topLeft, const glm::vec3 topRight, const glm::vec3 bottomLeft, const glm::vec3 bottomRight, const ofColor color)
+void makeQuad(
+	ofMesh & cubeFieldMesh, 
+	const glm::vec3 topLeft, 
+	const glm::vec3 topRight, 
+	const glm::vec3 bottomLeft, 
+	const glm::vec3 bottomRight, 
+	const ofColor color)
 {
 	const int currentIndex = cubeFieldMesh.getNumVertices();
 
@@ -85,7 +91,7 @@ void ofApp2020_09_15::update()
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
-			const float tempHeightModifer = getPeakFalloff(x, y) *(peakHeight * peakHeightOsc.getValue());
+			const float tempHeightModifer = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
 
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize;
@@ -95,11 +101,79 @@ void ofApp2020_09_15::update()
 			makeCube(cubeFieldMesh, cubeCenter, cubeSize);
 		}
 	}
+
+	const float timeAdjustedCameraSpeed = cameraSpeed * ofGetElapsedTimef();
+	if (isWDown)
+	{
+		cameraTranslation.z += timeAdjustedCameraSpeed;
+	}
+	if (isADown)
+	{
+		cameraTranslation.x -= timeAdjustedCameraSpeed;
+	}
+	if (isSDown)
+	{
+		cameraTranslation.z -= timeAdjustedCameraSpeed;
+	}
+	if (isDDown)
+	{
+		cameraTranslation.x += timeAdjustedCameraSpeed;
+	}
+
 }
 
 void ofApp2020_09_15::draw()
 {
-	cam.begin();
+	//cam.begin();
+	ofPushMatrix();
+	ofRotateDeg(180);
+	ofTranslate(cameraTranslation);
 	cubeFieldMesh.draw();
-	cam.end();
+	ofPopMatrix();
+	//cam.end();
+
+	std::stringstream translationDebugText;
+	translationDebugText << "Translation X : " << cameraTranslation.x << " Y : " << cameraTranslation.y << " Z : " << cameraTranslation.z;
+	ofDrawBitmapString(translationDebugText.str(), 10, 10);
+
+}
+
+void ofApp2020_09_15::keyPressed(ofKeyEventArgs & key)
+{
+	if (key.key == 'w')
+	{
+		isWDown = true;
+	}
+	if (key.key == 'a')
+	{
+		isADown = true;
+	}
+	if (key.key == 's')
+	{
+		isSDown = true;
+	}
+	if (key.key == 'd')
+	{
+		isDDown = true;
+	}
+}
+
+void ofApp2020_09_15::keyReleased(ofKeyEventArgs & key)
+{
+	if (key.key == 'w')
+	{
+		isWDown = false;
+	}
+	if (key.key == 'a')
+	{
+		isADown = false;
+	}
+	if (key.key == 's')
+	{
+		isSDown = false;
+	}
+	if (key.key == 'd')
+	{
+		isDDown = false;
+	}
 }
