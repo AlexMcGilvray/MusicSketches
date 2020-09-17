@@ -42,16 +42,16 @@ public:
 	virtual void mouseDragged(int x, int y, int button) override;
 
 private: // cubes mesh
-	ofMesh cubeFieldMesh;
+	ofVboMesh cubeFieldMesh;
 	const int cubeFieldDimensions = 100;
-	const int cubeSize = 20;
+	const int cubeSize = 60;
 	//ofEasyCam cam;
 
 private: // peak stuff
 	int peakX;
 	int peakY;
 	const int peakFalloff = 30;
-	const float peakHeight = 1000.f;
+	const float peakHeight = 1500.f;
 
 private: // animation variables
 	float peakMoveTimer;
@@ -61,7 +61,7 @@ private: // animation variables
 private: // debug camera
 	glm::vec3 cameraTranslation;
 	glm::vec3 cameraRotation; // kept for only one frame currently
-	const float cameraSpeed = 20.f;
+	const float cameraSpeed = 5.f;
 
 private: // debug input
 	// todo : that's enough keys, maybe change this to a map

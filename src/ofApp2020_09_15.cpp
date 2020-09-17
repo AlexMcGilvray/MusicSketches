@@ -58,6 +58,10 @@ void ofApp2020_09_15::setup()
 	ofEnableDepthTest();
 	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+
+	cameraTranslation.x = -1175.f;
+	cameraTranslation.y = -481.f;
+	cameraTranslation.z = -3734.f;
 }
 
 void ofApp2020_09_15::update()
@@ -91,12 +95,37 @@ void ofApp2020_09_15::update()
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
-			const float tempHeightModifer = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
+			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
+
+			if (planeHeight <= 25.0f)
+			{
+				continue;
+			}
 
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize - startingCoordinate;
 			cubeCenter.z = y * cubeSize - startingCoordinate;
-			cubeCenter.y = tempHeightModifer;
+			cubeCenter.y = planeHeight;
+
+			makeCube(cubeFieldMesh, cubeCenter, cubeSize);
+		}
+	}
+
+	for (int y = 0; y < cubeFieldDimensions; ++y)
+	{
+		for (int x = 0; x < cubeFieldDimensions; ++x)
+		{
+			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
+
+			if (planeHeight <= 25.0f)
+			{
+				continue;
+			}
+
+			glm::vec3 cubeCenter;
+			cubeCenter.x = x * cubeSize - startingCoordinate;
+			cubeCenter.z = y * cubeSize - startingCoordinate;
+			cubeCenter.y = -planeHeight;
 
 			makeCube(cubeFieldMesh, cubeCenter, cubeSize);
 		}
@@ -148,6 +177,10 @@ void ofApp2020_09_15::draw()
 	std::stringstream translationDebugText;
 	translationDebugText << "Translation X : " << cameraTranslation.x << " Y : " << cameraTranslation.y << " Z : " << cameraTranslation.z;
 	ofDrawBitmapString(translationDebugText.str(), 10, 10);
+
+	std::stringstream rotationDebugText;
+	rotationDebugText << "Rotation X : " << cameraRotation.x << " Y : " << cameraRotation.y << " Z : " << cameraRotation.z;
+	ofDrawBitmapString(rotationDebugText.str(), 10, 30);
 
 }
 
