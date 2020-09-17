@@ -10,10 +10,21 @@ public:
 	{
 		currentValue = sin(ofGetElapsedTimef());
 	}
-	float getValue() { return currentValue; }
+	float getValue() 
+	{ 
+		if (nonNegative)
+		{
+			return std::abs(currentValue);
+		}
+		else
+		{
+			return currentValue; 
+		}
+	}
 
 	float scale = 1.0f;
 	float currentValue;
+	bool nonNegative = true;
 };
 
 
