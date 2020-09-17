@@ -55,12 +55,31 @@ void ofApp2020_09_15::setup()
 	ofEnableDepthTest();
 	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+
+	auto getPeakFalloff = [this](int x, int y) -> float
+	{
+		const int distanceX = std::abs(peakX - x);
+		const int distanceY = std::abs(peakY - y);
+		const int furthestDistance = std::max(distanceX, distanceY);
+		if (furthestDistance > peakFalloff)
+		{
+			return 0.f;
+		}
+		else
+		{
+			const float normalizedDistance = 1.f - furthestDistance / (float)peakFalloff;
+			return normalizedDistance;
+		}
+	};
+
+	peakX = ofRandom(0, cubeFieldDimensions);
+	peakY = ofRandom(0, cubeFieldDimensions);
 	
 	for (int y = 0; y < cubeFieldDimensions; ++y)
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
 		{
-			const float tempHeightModifer = ofRandom(0.f, 50.f);
+			const float tempHeightModifer = getPeakFalloff(x, y) * peakHeight;
 
 			glm::vec3 cubeCenter;
 			cubeCenter.x = x * cubeSize;

@@ -16,4 +16,9 @@ private: // cubes mesh
 	const int cubeFieldDimensions = 9;
 	const int cubeSize = 100;
 	ofEasyCam cam;
+
+	int peakX;
+	int peakY;
+	const int peakFalloff = 3;
+	const float peakHeight = 100.f;
 };
