@@ -58,8 +58,6 @@ void ofApp2020_09_15::setup()
 	ofEnableDepthTest();
 	ofSeedRandom();
 	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
-
-
 }
 
 void ofApp2020_09_15::update()
@@ -87,6 +85,8 @@ void ofApp2020_09_15::update()
 
 	cubeFieldMesh.clear();
 
+	const float startingCoordinate = (cubeFieldDimensions * cubeSize) / 2.f;
+
 	for (int y = 0; y < cubeFieldDimensions; ++y)
 	{
 		for (int x = 0; x < cubeFieldDimensions; ++x)
@@ -94,8 +94,8 @@ void ofApp2020_09_15::update()
 			const float tempHeightModifer = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
 
 			glm::vec3 cubeCenter;
-			cubeCenter.x = x * cubeSize;
-			cubeCenter.z = y * cubeSize;
+			cubeCenter.x = x * cubeSize - startingCoordinate;
+			cubeCenter.z = y * cubeSize - startingCoordinate;
 			cubeCenter.y = tempHeightModifer;
 
 			makeCube(cubeFieldMesh, cubeCenter, cubeSize);
@@ -134,8 +134,14 @@ void ofApp2020_09_15::draw()
 	//cam.begin();
 	ofPushMatrix();
 	ofRotateDeg(180);
+	ofPushMatrix();
 	ofTranslate(cameraTranslation);
+	ofRotateXDeg(cameraRotation.x);
+	ofRotateYDeg(cameraRotation.y);
+	//ofRotateZDeg(cameraRotation.z);
+
 	cubeFieldMesh.draw();
+	ofPopMatrix();
 	ofPopMatrix();
 	//cam.end();
 
@@ -199,4 +205,10 @@ void ofApp2020_09_15::keyReleased(ofKeyEventArgs & key)
 	{
 		isEDown = false;
 	}
+}
+
+void ofApp2020_09_15::mouseDragged(int x, int y, int button)
+{
+	cameraRotation.x = -y / 2;
+	cameraRotation.y = -x / 2;
 }

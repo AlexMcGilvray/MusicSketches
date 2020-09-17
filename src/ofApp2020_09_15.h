@@ -35,11 +35,11 @@ public:
 	void update() override;
 	void draw() override;
 
-
 	virtual void keyPressed(ofKeyEventArgs & key) override;
-
-
 	virtual void keyReleased(ofKeyEventArgs & key) override;
+
+
+	virtual void mouseDragged(int x, int y, int button) override;
 
 private: // cubes mesh
 	ofMesh cubeFieldMesh;
@@ -60,9 +60,11 @@ private: // animation variables
 
 private: // debug camera
 	glm::vec3 cameraTranslation;
+	glm::vec3 cameraRotation; // kept for only one frame currently
 	const float cameraSpeed = 20.f;
 
 private: // debug input
+	// todo : that's enough keys, maybe change this to a map
 	bool isWDown, isADown, isSDown, isDDown,isQDown,isEDown;
 
 };
