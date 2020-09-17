@@ -1,35 +1,35 @@
 #include "ofApp2020_09_15.h"
 
 void makeQuad(
-	ofMesh & cubeFieldMesh,
+	ofMesh & mesh,
 	const glm::vec3 topLeft,
 	const glm::vec3 topRight,
 	const glm::vec3 bottomLeft,
 	const glm::vec3 bottomRight,
 	const ofColor color)
 {
-	const int currentIndex = cubeFieldMesh.getNumVertices();
+	const int currentIndex = mesh.getNumVertices();
 
-	cubeFieldMesh.addVertex(topLeft);
-	cubeFieldMesh.addVertex(topRight);
-	cubeFieldMesh.addVertex(bottomLeft);
-	cubeFieldMesh.addVertex(bottomRight);
+	mesh.addVertex(topLeft);
+	mesh.addVertex(topRight);
+	mesh.addVertex(bottomLeft);
+	mesh.addVertex(bottomRight);
 
-	cubeFieldMesh.addColor(color);
-	cubeFieldMesh.addColor(color);
-	cubeFieldMesh.addColor(color);
-	cubeFieldMesh.addColor(color);
+	mesh.addColor(color);
+	mesh.addColor(color);
+	mesh.addColor(color);
+	mesh.addColor(color);
 
-	cubeFieldMesh.addIndex(currentIndex);
-	cubeFieldMesh.addIndex(currentIndex + 2);
-	cubeFieldMesh.addIndex(currentIndex + 1);
+	mesh.addIndex(currentIndex);
+	mesh.addIndex(currentIndex + 2);
+	mesh.addIndex(currentIndex + 1);
 
-	cubeFieldMesh.addIndex(currentIndex + 2);
-	cubeFieldMesh.addIndex(currentIndex + 3);
-	cubeFieldMesh.addIndex(currentIndex + 1);
+	mesh.addIndex(currentIndex + 2);
+	mesh.addIndex(currentIndex + 3);
+	mesh.addIndex(currentIndex + 1);
 }
 
-void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cubeSize, ofColor color)
+void makeCube(ofMesh & mesh, const glm::vec3 cubeCenter, const int cubeSize, ofColor color)
 {
 	const float cubeHalfSize = cubeSize / 2.f;
 	// top/bottom coordinates of the cube
@@ -43,7 +43,7 @@ void makeCube(ofMesh & cubeFieldMesh, const glm::vec3 cubeCenter, const int cube
 	const float cubeZMax = cubeCenter.z + cubeHalfSize;
 
 	makeQuad(
-		cubeFieldMesh,
+		mesh,
 		glm::vec3(cubeXMin, cubeYMax, cubeZMin),
 		glm::vec3(cubeXMax, cubeYMax, cubeZMin),
 		glm::vec3(cubeXMin, cubeYMax, cubeZMax),
@@ -55,10 +55,10 @@ void ofApp2020_09_15::setup()
 {
 	ofEnableDepthTest();
 	ofSeedRandom();
-	cubeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+	planeFieldMesh.setMode(OF_PRIMITIVE_TRIANGLES);
 
 	cameraTranslation.x = -1175.f;
-	cameraTranslation.y = -481.f;
+	cameraTranslation.y = -509.f;
 	cameraTranslation.z = -3734.f;
 
 	backgroundColor = ofColor::darkGrey;
@@ -87,50 +87,52 @@ void ofApp2020_09_15::update()
 		}
 	};
 
-	peakX = ofRandom(0, cubeFieldDimensions);
-	peakY = ofRandom(0, cubeFieldDimensions);
+	peakX = ofRandom(0, planeFieldDimensions);
+	peakY = ofRandom(0, planeFieldDimensions);
 
-	cubeFieldMesh.clear();
+	planeFieldMesh.clear();
 
-	const float startingCoordinate = (cubeFieldDimensions * cubeSize) / 2.f;
+	const float startingCoordinate = (planeFieldDimensions * planeSize) / 2.f;
 
-	for (int y = 0; y < cubeFieldDimensions; ++y)
+	// top pyramids
+	for (int y = 0; y < planeFieldDimensions; ++y)
 	{
-		for (int x = 0; x < cubeFieldDimensions; ++x)
+		for (int x = 0; x < planeFieldDimensions; ++x)
 		{
 			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
 
-			if (planeHeight <= 25.0f)
+			if (planeHeight <= renderingHeightThreshold)
 			{
 				continue;
 			}
 
 			glm::vec3 cubeCenter;
-			cubeCenter.x = x * cubeSize - startingCoordinate;
-			cubeCenter.z = y * cubeSize - startingCoordinate;
+			cubeCenter.x = x * planeSize - startingCoordinate;
+			cubeCenter.z = y * planeSize - startingCoordinate;
 			cubeCenter.y = planeHeight;
 
-			makeCube(cubeFieldMesh, cubeCenter, cubeSize, foregroundColor);
+			makeCube(planeFieldMesh, cubeCenter, planeSize, foregroundColor);
 		}
 	}
 
-	for (int y = 0; y < cubeFieldDimensions; ++y)
+	// bottom pyramids
+	for (int y = 0; y < planeFieldDimensions; ++y)
 	{
-		for (int x = 0; x < cubeFieldDimensions; ++x)
+		for (int x = 0; x < planeFieldDimensions; ++x)
 		{
 			const float planeHeight = getPeakFalloff(x, y) * (peakHeight * peakHeightOsc.getValue());
 
-			if (planeHeight <= 25.0f)
+			if (planeHeight <= renderingHeightThreshold)
 			{
 				continue;
 			}
 
 			glm::vec3 cubeCenter;
-			cubeCenter.x = x * cubeSize - startingCoordinate;
-			cubeCenter.z = y * cubeSize - startingCoordinate;
+			cubeCenter.x = x * planeSize - startingCoordinate;
+			cubeCenter.z = y * planeSize - startingCoordinate;
 			cubeCenter.y = -planeHeight;
 
-			makeCube(cubeFieldMesh, cubeCenter, cubeSize, foregroundColor);
+			makeCube(planeFieldMesh, cubeCenter, planeSize, foregroundColor);
 		}
 	}
 
@@ -172,7 +174,7 @@ void ofApp2020_09_15::draw()
 	ofRotateYDeg(cameraRotation.y);
 	//ofRotateZDeg(cameraRotation.z);
 
-	cubeFieldMesh.draw();
+	planeFieldMesh.draw();
 	ofPopMatrix();
 	ofPopMatrix();
 	//cam.end();
@@ -245,6 +247,6 @@ void ofApp2020_09_15::keyReleased(ofKeyEventArgs & key)
 
 void ofApp2020_09_15::mouseDragged(int x, int y, int button)
 {
-	cameraRotation.x = -y / 2;
-	cameraRotation.y = -x / 2;
+	cameraRotation.x = -y / 2; // todo pull out scaling variables
+	cameraRotation.y = -x / 2; // todo pull out scaling variables
 }

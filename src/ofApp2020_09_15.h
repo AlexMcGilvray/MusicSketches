@@ -22,7 +22,6 @@ public:
 		}
 	}
 
-	float scale = 1.0f;
 	float currentValue;
 	bool nonNegative = true;
 };
@@ -42,9 +41,11 @@ public:
 	virtual void mouseDragged(int x, int y, int button) override;
 
 private: // cubes mesh
-	ofVboMesh cubeFieldMesh;
-	const int cubeFieldDimensions = 100;
-	const int cubeSize = 60;
+	ofVboMesh planeFieldMesh;
+	const int planeFieldDimensions = 100;
+	const int planeSize = 60;
+	// don't render a plane if its lower that this 
+	const float renderingHeightThreshold = 50.f; 
 	//ofEasyCam cam;
 
 private: // peak stuff
@@ -61,7 +62,7 @@ private: // animation variables
 private: // debug camera
 	glm::vec3 cameraTranslation;
 	glm::vec3 cameraRotation; // kept for only one frame currently
-	const float cameraSpeed = 5.f;
+	const float cameraSpeed = 1.f;
 
 private: // debug input
 	// todo : that's enough keys, maybe change this to a map
