@@ -61,10 +61,19 @@ void ofApp2020_09_15::setup()
 	cameraTranslation.y = -509.f;
 	cameraTranslation.z = -3734.f;
 
-	backgroundColor = ofColor::black;
-	foregroundColor = ofColor::darkorange;
+	backgroundColor = ofColor::darkGrey;
+	foregroundColor = ofColor::grey;
 
 	ofBackground(backgroundColor);
+
+	peakX = ofRandom(0, planeFieldDimensions);
+	peakY = ofRandom(0, planeFieldDimensions);
+}
+
+void ofApp2020_09_15::updatePeakCoorindates()
+{
+	peakX = ofRandom(0, planeFieldDimensions);
+	peakY = ofRandom(0, planeFieldDimensions);
 }
 
 void ofApp2020_09_15::update()
@@ -87,8 +96,7 @@ void ofApp2020_09_15::update()
 		}
 	};
 
-	peakX = ofRandom(0, planeFieldDimensions);
-	peakY = ofRandom(0, planeFieldDimensions);
+	updatePeakCoorindates();
 
 	planeFieldMesh.clear();
 
@@ -162,6 +170,7 @@ void ofApp2020_09_15::update()
 		cameraTranslation.y += timeAdjustedCameraSpeed;
 	}
 }
+
 
 void ofApp2020_09_15::draw()
 {

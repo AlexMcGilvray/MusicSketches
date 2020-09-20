@@ -31,6 +31,7 @@ class ofApp2020_09_15 : public ofBaseApp {
 public:
 	void setup() override;
 	void update() override;
+	void updatePeakCoorindates();
 	void draw() override;
 
 	virtual void keyPressed(ofKeyEventArgs & key) override;
