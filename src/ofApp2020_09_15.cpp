@@ -72,8 +72,42 @@ void ofApp2020_09_15::setup()
 
 void ofApp2020_09_15::updatePeakCoorindates()
 {
-	peakX = ofRandom(0, planeFieldDimensions);
-	peakY = ofRandom(0, planeFieldDimensions);
+	const int lastPeakX = peakX;
+	const int lastPeakY = peakY;
+	bool foundAppropriateNewCoordinate = false;
+
+	while (!foundAppropriateNewCoordinate)
+	{
+		const float shouldMoveVertically = ofRandom(0.f, 1.f);
+		if (shouldMoveVertically > 0.5f)
+		{
+			const float upDown = ofRandom(0.f, 1.f);
+			if (upDown > .5f)
+			{
+				peakY++;
+			}
+			else
+			{
+				peakY--;
+			}
+		}
+		else
+		{
+			const float leftRight = ofRandom(0.f, 1.f);
+			if (leftRight > .5f)
+			{
+				peakX++;
+			}
+			else
+			{
+				peakX--;
+			}
+		}
+		if (peakX >= 0 && peakX < planeFieldDimensions && peakY > 0 && peakY < planeFieldDimensions)
+		{
+			foundAppropriateNewCoordinate = true;
+		}
+	}
 }
 
 void ofApp2020_09_15::update()
